@@ -5,4 +5,9 @@
     <RootNamespace>DotNet_101.Infrastructure</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="IoC\" />
+    <Folder Include="SqlServer\" />
+  </ItemGroup>
+
 </Project>
