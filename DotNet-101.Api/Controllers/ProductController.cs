@@ -24,14 +24,10 @@ namespace DotNet_101.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllProduct()
+        public async Task<IActionResult> GetAllProduct()
         {
-            var result = _context.Products.ToList();
-            //var result = (from p in _context.Orders
-            //              join t in _context.OrderDetails on p.OrderId equals t.OrderId
-            //              where p.OrderId == orderId
-            //              select new { OrderDate = p.OrderDate, Qty = t.Qty }).ToList();
-            return Ok(result);
+            var productModel = await _productService.GetAllProduct();
+            return Ok(productModel);
         }
 
         [HttpGet]
