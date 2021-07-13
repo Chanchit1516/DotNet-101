@@ -8,9 +8,10 @@ namespace DotNet_101.Core.Entities
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
-        public string Description { get; set; }
         public int UnitPrice { get; set; }
         public int UnitsInStock { get; set; }
         public int UnitsOnOrder { get; set; }
+        public string Barcode { get; set; }
+        public int OrderId { get; set; }
     }
 }
