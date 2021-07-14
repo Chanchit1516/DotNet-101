@@ -16,7 +16,6 @@ namespace DotNet_101.Api.Controllers
         private readonly ApplicationDbContext _context;
         IProductService _productService;
 
-
         public ProductController(IProductService productService, ApplicationDbContext context)
         {
             _productService = productService;
