@@ -12,14 +12,14 @@ namespace DotNet_101.Infrastructure.SqlServer
     {
         private readonly ApplicationDbContext _context;
         //private readonly ILogger _logger;
-
-        public IProductRepository ProductRepository { get; private set; }
+        IProductRepository productRepository;
 
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory)
         {
             _context = context;
-            ProductRepository = new ProductRepository(context);
         }
+
+        public IProductRepository ProductRepository => productRepository ??= new ProductRepository(_context);
 
         public async Task CompleteAsync()
         {
