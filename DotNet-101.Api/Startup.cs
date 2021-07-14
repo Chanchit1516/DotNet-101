@@ -38,7 +38,6 @@ namespace DotNet_101.Api
                 option.UseSqlServer(@"Data Source=DESKTOP-URTA846\SQLEXPRESS;Database=developmentDb;User ID=sa;Password=123456;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             });
 
-            #region Swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -47,7 +46,6 @@ namespace DotNet_101.Api
                     Title = "EFCore.CodeFirst.WebApi",
                 });
             });
-            #endregion
 
             services.AddControllers();
 
@@ -80,19 +78,15 @@ namespace DotNet_101.Api
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
 
-            #region Swagger
             app.UseSwagger();
+
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "EFCore.CodeFirst.WebApi");
             });
-            #endregion
         }
     }
 }

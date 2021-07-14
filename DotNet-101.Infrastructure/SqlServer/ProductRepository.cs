@@ -2,6 +2,7 @@
 using DotNet_101.Core.Interfaces.Repository;
 using DotNet_101.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +11,16 @@ using System.Threading.Tasks;
 
 namespace DotNet_101.Infrastructure.SqlServer
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : GenericRepository<Product>, IProductRepository
     {
-        private readonly ApplicationDbContext _dbContext;
-        public ProductRepository(ApplicationDbContext dbContext)
-        {
-            _dbContext = dbContext;
+        public ProductRepository(ApplicationDbContext context) : base(context) 
+        { 
+
         }
 
         public async Task<List<Product>> GetAllProduct()
         {
-            return await _dbContext.Products.ToListAsync();
+            return await _context.Products.ToListAsync();
         }
 
     }

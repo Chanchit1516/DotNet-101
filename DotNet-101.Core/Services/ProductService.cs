@@ -16,6 +16,7 @@ namespace DotNet_101.Core.Services
         {
             _productRepository = productRepository;
         }
+
         public async Task<List<Product>> GetAllProduct()
         {
             return await _productRepository.GetAllProduct();
