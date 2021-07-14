@@ -1,4 +1,6 @@
-﻿using DotNet_101.Core.Entities;
+﻿using AutoMapper;
+using DotNet_101.Core.DTOs;
+using DotNet_101.Core.Entities;
 using DotNet_101.Core.Interfaces;
 using DotNet_101.Core.Interfaces.Repository;
 using DotNet_101.Core.Interfaces.Service;
@@ -12,13 +14,17 @@ namespace DotNet_101.Core.Services
     public class ProductService : IProductService
     {
         private IUnitOfWork _uow;
-        public ProductService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public ProductService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _uow = unitOfWork;
+            _mapper = mapper;
         }
-        public async Task<List<Product>> GetAllProduct()
+
+        public async Task<IEnumerable<ProductViewModel>> GetAllProduct()
         {
-            return await _uow.ProductRepository.GetAllProduct();
+            var productModel = await _uow.ProductRepository.GetAllProduct();
+            return _mapper.Map<IEnumerable<ProductViewModel>>(productModel);
         }
 
     }
