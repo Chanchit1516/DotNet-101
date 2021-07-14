@@ -11,8 +11,8 @@ namespace DotNet_101.Infrastructure.IoC
     {
         public static void RegisterInfrastructureServices(this IServiceCollection serviceCollection)
         {
+            serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
             serviceCollection.AddTransient<IProductRepository, ProductRepository>();
-            
         }
     }
 }

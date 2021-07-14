@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace DotNet_101.Api
 {
@@ -34,6 +35,15 @@ namespace DotNet_101.Api
             services.AddDbContext<ApplicationDbContext>(option =>
             {
                 option.UseSqlServer(@"Data Source=DESKTOP-URTA846\SQLEXPRESS;Database=developmentDb;User ID=sa;Password=123456;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "EFCore.CodeFirst.WebApi",
+                });
             });
 
             services.AddControllers();
@@ -68,6 +78,13 @@ namespace DotNet_101.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "EFCore.CodeFirst.WebApi");
             });
         }
     }

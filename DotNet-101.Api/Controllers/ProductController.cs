@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DotNet_101.Core.Entities;
+using DotNet_101.Core.Interfaces.Repository;
 using DotNet_101.Core.Interfaces.Service;
 using DotNet_101.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +14,13 @@ namespace DotNet_101.Api.Controllers
     [Route("api/v1/[controller]/[action]")]
     public class ProductController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
         IProductService _productService;
 
-        public ProductController(IProductService productService, ApplicationDbContext context)
+        public ProductController(IProductService productService, IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
             _productService = productService;
-            _context = context;
         }
 
         [HttpGet]
@@ -30,15 +31,15 @@ namespace DotNet_101.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult InsertProduct()
+        public async Task<IActionResult> InsertProduct()
         {
             var product = new Product();
             product.ProductName = "Pencil";
             product.UnitPrice = 10;
             product.UnitsInStock = 100;
             product.UpdatedBy = 1;
-            _context.Products.Add(product);
-            _context.SaveChanges();
+            await _unitOfWork.ProductRepository.Add(product);
+            await _unitOfWork.CompleteAsync();
             return Ok();
         }
 

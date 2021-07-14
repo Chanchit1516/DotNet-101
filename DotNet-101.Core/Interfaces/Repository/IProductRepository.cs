@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DotNet_101.Core.Interfaces.Repository
 {
-    public interface IProductRepository
+    public interface IProductRepository : IGenericRepository<Product>
     {
         Task<List<Product>> GetAllProduct();
     }
