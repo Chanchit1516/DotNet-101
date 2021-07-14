@@ -11,15 +11,14 @@ namespace DotNet_101.Core.Services
 {
     public class ProductService : IProductService
     {
-        private IProductRepository _productRepository;
-        public ProductService(IProductRepository productRepository)
+        private IUnitOfWork _uow;
+        public ProductService(IUnitOfWork unitOfWork)
         {
-            _productRepository = productRepository;
+            _uow = unitOfWork;
         }
-
         public async Task<List<Product>> GetAllProduct()
         {
-            return await _productRepository.GetAllProduct();
+            return await _uow.ProductRepository.GetAllProduct();
         }
 
     }

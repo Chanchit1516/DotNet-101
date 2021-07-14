@@ -26,7 +26,7 @@ namespace DotNet_101.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProduct()
         {
-            var productModel = await _productService.GetAllProduct();
+            var productModel = await _unitOfWork.ProductRepository.GetAll();
             return Ok(productModel);
         }
 
