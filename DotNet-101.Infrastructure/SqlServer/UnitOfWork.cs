@@ -11,8 +11,9 @@ namespace DotNet_101.Infrastructure.SqlServer
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly ApplicationDbContext _context;
-        //private readonly ILogger _logger;
+        private bool _disposed;
         IProductRepository productRepository;
+        //private readonly ILogger _logger;
 
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory)
         {
@@ -30,5 +31,6 @@ namespace DotNet_101.Infrastructure.SqlServer
         {
             _context.Dispose();
         }
+
     }
 }
