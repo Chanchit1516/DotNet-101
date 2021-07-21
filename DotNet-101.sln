@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet-101.Api", "DotNet-101.Api\DotNet-101.Api.csproj", "{C9AFDD53-C828-428A-BB1A-A1F663D0F9B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet-101.Core", "DotNet-101.Core\DotNet-101.Core.csproj", "{D156D608-0619-4A9A-B165-A253D0C12FE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet-101.Core", "DotNet-101.Core\DotNet-101.Core.csproj", "{D156D608-0619-4A9A-B165-A253D0C12FE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet-101.Infrastructure", "DotNet-101.Infrastructure\DotNet-101.Infrastructure.csproj", "{F2CBAB1A-29E0-4CCB-A9A1-5067DD0D6E63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet-101.Infrastructure", "DotNet-101.Infrastructure\DotNet-101.Infrastructure.csproj", "{F2CBAB1A-29E0-4CCB-A9A1-5067DD0D6E63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet-101.SharedKernel", "DotNet-101.SharedKernel\DotNet-101.SharedKernel.csproj", "{7E28E43E-1F55-4F72-A9B4-54F6EE4C6D66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet-101.SharedKernel", "DotNet-101.SharedKernel\DotNet-101.SharedKernel.csproj", "{7E28E43E-1F55-4F72-A9B4-54F6EE4C6D66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.API", "Identity.API\Identity.API.csproj", "{EC86FAC1-4543-40CC-A2BB-9E890303ED15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7E28E43E-1F55-4F72-A9B4-54F6EE4C6D66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E28E43E-1F55-4F72-A9B4-54F6EE4C6D66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E28E43E-1F55-4F72-A9B4-54F6EE4C6D66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC86FAC1-4543-40CC-A2BB-9E890303ED15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC86FAC1-4543-40CC-A2BB-9E890303ED15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC86FAC1-4543-40CC-A2BB-9E890303ED15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC86FAC1-4543-40CC-A2BB-9E890303ED15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
