@@ -8,6 +8,7 @@ namespace DotNet_101.Core.Interfaces.Repository
     public interface IUnitOfWork
     {
         IProductRepository ProductRepository { get; }
+        ICustomerRepository CustomerRepository { get; }
         Task CompleteAsync();
     }
 }

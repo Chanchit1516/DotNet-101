@@ -13,8 +13,8 @@ namespace DotNet_101.Core.Mapper
     {
         public DTOMapper()
         {
-            CreateMap<Product, ProductViewModel>().ReverseMap();
-
+            CreateMap<Product, ProductDTO>().ReverseMap();
+            CreateMap<Customer, CustomerDTO>().ReverseMap();
         }
     }
 }

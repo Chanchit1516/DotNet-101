@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DotNet_101.Core.DTOs;
 using DotNet_101.Core.Entities;
 using DotNet_101.Core.Interfaces.Repository;
 using DotNet_101.Core.Interfaces.Service;
@@ -28,19 +29,31 @@ namespace DotNet_101.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProduct()
         {
-            var productModel = await _unitOfWork.ProductRepository.GetAllProduct();
+            var productModel = await _productService.GetAllCustomer();
             return Ok(productModel);
         }
 
         [HttpGet]
-        public async Task<IActionResult> InsertProduct()
+        public async Task<IActionResult> GetAllCustomer()
         {
-            var product = new Product();
-            product.ProductName = "Pencil";
-            product.UnitPrice = 10;
-            product.UnitsInStock = 100;
-            product.UpdatedBy = 1;
-            await _unitOfWork.ProductRepository.Add(product);
+            var customerModel = await _productService.GetAllCustomer();
+            return Ok(customerModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> InsertCustomer([FromBody] CustomerDTO customer)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var model = new Customer();
+            model.CompanyName = customer.CompanyName;
+            model.ContactTitle = customer.ContactTitle;
+            model.Phone = customer.Phone;
+            model.Country = customer.Country;
+            model.CreatedBy = 0;
+            await _unitOfWork.CustomerRepository.Add(model);
             await _unitOfWork.CompleteAsync();
             return Ok();
         }

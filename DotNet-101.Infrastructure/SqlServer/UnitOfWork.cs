@@ -13,6 +13,7 @@ namespace DotNet_101.Infrastructure.SqlServer
         private readonly ApplicationDbContext _context;
         private bool _disposed;
         IProductRepository productRepository;
+        ICustomerRepository customerRepository;
         //private readonly ILogger _logger;
 
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory)
@@ -21,6 +22,7 @@ namespace DotNet_101.Infrastructure.SqlServer
         }
 
         public IProductRepository ProductRepository => productRepository ??= new ProductRepository(_context);
+        public ICustomerRepository CustomerRepository => customerRepository ??= new CustomerRepository(_context);
 
         public async Task CompleteAsync()
         {
