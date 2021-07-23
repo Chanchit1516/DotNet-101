@@ -2,6 +2,8 @@ using System.Threading.Tasks;
 using DotNet_101.Core.DTOs;
 using DotNet_101.Core.Interfaces.Repository;
 using DotNet_101.Core.Interfaces.Service;
+using DotNet_101.SharedKernel.Extensions;
+using DotNet_101.SharedKernel.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +20,7 @@ namespace DotNet_101.Api.Controllers
             _unitOfWork = unitOfWork;
             _customerService = customerService;
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> GetAllCustomer()
         {
@@ -29,10 +31,7 @@ namespace DotNet_101.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> InsertCustomer([FromBody] CustomerDTO customer)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) { throw new ModelException(ModelState.FirstError()); }
             var res = await _customerService.InsertCustomer(customer);
             return Ok(res);
         }

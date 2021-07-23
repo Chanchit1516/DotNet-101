@@ -6,6 +6,7 @@ using DotNet_101.Core.DTOs;
 using DotNet_101.Core.Entities;
 using DotNet_101.Core.Interfaces.Repository;
 using DotNet_101.Core.Interfaces.Service;
+using DotNet_101.SharedKernel.Helpers;
 
 namespace DotNet_101.Core.Services
 {
@@ -21,9 +22,15 @@ namespace DotNet_101.Core.Services
 
         public async Task<IEnumerable<OrderDTO>> GetAllOrder()
         {
-            // 2Fellow
-            var orderModel = await _uow.OrderRepository.GetAllOrder();
-            return _mapper.Map<IEnumerable<OrderDTO>>(orderModel);
+            try
+            {
+                var orderModel = await _uow.OrderRepository.GetAllOrder();
+                return _mapper.Map<IEnumerable<OrderDTO>>(orderModel);
+            }
+            catch (Exception ex)
+            {
+                throw new AppException(ex.Message);
+            }
         }
 
         public async Task<bool> InsertOrder(OrderDTO productDTO)
@@ -37,7 +44,7 @@ namespace DotNet_101.Core.Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new AppException(ex.Message);
             }
         }
     }

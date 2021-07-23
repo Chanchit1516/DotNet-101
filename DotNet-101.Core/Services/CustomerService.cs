@@ -6,6 +6,7 @@ using DotNet_101.Core.DTOs;
 using DotNet_101.Core.Entities;
 using DotNet_101.Core.Interfaces.Repository;
 using DotNet_101.Core.Interfaces.Service;
+using DotNet_101.SharedKernel.Helpers;
 
 namespace DotNet_101.Core.Services
 {
@@ -21,8 +22,15 @@ namespace DotNet_101.Core.Services
 
         public async Task<IEnumerable<CustomerDTO>> GetAllCustomer()
         {
-            var customerModel = await _uow.CustomerRepository.GetAllCustomer();
-            return _mapper.Map<IEnumerable<CustomerDTO>>(customerModel);
+            try
+            {
+                var customerModel = await _uow.CustomerRepository.GetAllCustomer();
+                return _mapper.Map<IEnumerable<CustomerDTO>>(customerModel);
+            }
+            catch (Exception ex)
+            {
+                throw new AppException(ex.Message);
+            }
         }
 
         public async Task<bool> InsertCustomer(CustomerDTO productDTO)
@@ -36,7 +44,7 @@ namespace DotNet_101.Core.Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new AppException(ex.Message);
             }
         }
     }
