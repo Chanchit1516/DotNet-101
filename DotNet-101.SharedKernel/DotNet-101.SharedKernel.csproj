@@ -5,4 +5,8 @@
     <RootNamespace>DotNet_101.SharedKernel</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Nobly.Extensions.ModelStateDictionary" Version="1.0.0" />
+  </ItemGroup>
+
 </Project>

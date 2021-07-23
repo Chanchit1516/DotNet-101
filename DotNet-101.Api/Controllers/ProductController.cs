@@ -7,6 +7,8 @@ using DotNet_101.Core.Entities;
 using DotNet_101.Core.Interfaces.Repository;
 using DotNet_101.Core.Interfaces.Service;
 using DotNet_101.Infrastructure.Data;
+using DotNet_101.SharedKernel.Extensions;
+using DotNet_101.SharedKernel.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -36,10 +38,7 @@ namespace DotNet_101.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> InsertProduct([FromBody] ProductDTO product)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) { throw new ModelException(ModelState.FirstError()); }
             var res = await _productService.InsertProduct(product);
             return Ok(res);
         }

@@ -37,6 +37,9 @@ namespace DotNet_101.Api.Middleware
                     case KeyNotFoundException e:
                         response.StatusCode = (int)HttpStatusCode.NotFound;
                         break;
+                    case ModelException e:
+                        response.StatusCode = (int)HttpStatusCode.UnsupportedMediaType;
+                        break;
                     default:
                         response.StatusCode = (int)HttpStatusCode.InternalServerError;
                         break;

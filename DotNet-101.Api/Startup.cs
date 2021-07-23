@@ -89,23 +89,23 @@ namespace DotNet_101.Api
             }
             app.UseHttpsRedirection();
             app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "EFCore.CodeFirst.WebApi");
+            });
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
             // global cors policy
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
             app.UseCors(x => x
                 .SetIsOriginAllowed(origin => true)
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials());
             app.UseMiddleware<ErrorHandlerMiddleware>();
-            app.UseSwaggerUI(c =>
+            app.UseEndpoints(endpoints =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "EFCore.CodeFirst.WebApi");
+                endpoints.MapControllers();
             });
         }
     }

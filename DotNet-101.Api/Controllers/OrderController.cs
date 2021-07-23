@@ -2,6 +2,8 @@ using System.Threading.Tasks;
 using DotNet_101.Core.DTOs;
 using DotNet_101.Core.Interfaces.Repository;
 using DotNet_101.Core.Interfaces.Service;
+using DotNet_101.SharedKernel.Extensions;
+using DotNet_101.SharedKernel.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,10 +31,7 @@ namespace DotNet_101.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> InsertOrder([FromBody] OrderDTO order)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) { throw new ModelException(ModelState.FirstError()); }
             var res = await _orderService.InsertOrder(order);
             return Ok(res);
         }
