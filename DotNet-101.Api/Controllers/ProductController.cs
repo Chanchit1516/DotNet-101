@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace DotNet_101.Api.ControllersO
+namespace DotNet_101.Api.Controllers
 {
     [Route("api/v1/[controller]/[action]")]
     [Authorize]
