@@ -13,6 +13,5 @@ namespace DotNet_101.Core.Entities
         public int UnitsInStock { get; set; }
         public int UnitsOnOrder { get; set; }
         public string Barcode { get; set; }
-        public int OrderId { get; set; }
     }
 }
