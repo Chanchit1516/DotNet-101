@@ -21,10 +21,19 @@ namespace DotNet_101.Core.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ProductViewModel>> GetAllProduct()
+        public async Task<IEnumerable<ProductDTO>> GetAllProduct()
         {
             var productModel = await _uow.ProductRepository.GetAllProduct();
-            return _mapper.Map<IEnumerable<ProductViewModel>>(productModel);
+            return _mapper.Map<IEnumerable<ProductDTO>>(productModel);
+        }
+
+        public async Task<bool> InsertProduct(ProductDTO productDTO)
+        {
+            productDTO.Barcode = Guid.NewGuid().ToString();
+            var product = _mapper.Map<Product>(productDTO);
+            var res = await _uow.ProductRepository.Add(product);
+            await _uow.CompleteAsync();
+            return res;
         }
 
     }

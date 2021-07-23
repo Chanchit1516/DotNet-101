@@ -12,6 +12,8 @@ namespace DotNet_101.Core.IoC
         public static void RegisterCoreServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IProductService, ProductService>();
+            serviceCollection.AddScoped<ICustomerService, CustomerService>();
+            serviceCollection.AddScoped<IOrderService, OrderService>();
         }
     }
 }

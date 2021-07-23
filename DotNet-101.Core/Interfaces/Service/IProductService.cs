@@ -9,6 +9,7 @@ namespace DotNet_101.Core.Interfaces.Service
 {
     public interface IProductService
     {
-        Task<IEnumerable<ProductViewModel>> GetAllProduct();
+        Task<IEnumerable<ProductDTO>> GetAllProduct();
+        Task<bool> InsertProduct(ProductDTO product);
     }
 }
