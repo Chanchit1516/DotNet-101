@@ -27,10 +27,13 @@ namespace DotNet_101.Core.Services
             return _mapper.Map<IEnumerable<ProductDTO>>(productModel);
         }
 
-        public async Task<IEnumerable<CustomerDTO>> GetAllCustomer()
+        public async Task<bool> InsertProduct(ProductDTO productDTO)
         {
-            var customerModel = await _uow.CustomerRepository.GetAllCustomer();
-            return _mapper.Map<IEnumerable<CustomerDTO>>(customerModel);
+            productDTO.Barcode = Guid.NewGuid().ToString();
+            var product = _mapper.Map<Product>(productDTO);
+            var res = await _uow.ProductRepository.Add(product);
+            await _uow.CompleteAsync();
+            return res;
         }
 
     }

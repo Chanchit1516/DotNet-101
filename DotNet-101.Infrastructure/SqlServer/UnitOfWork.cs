@@ -14,6 +14,7 @@ namespace DotNet_101.Infrastructure.SqlServer
         private bool _disposed;
         IProductRepository productRepository;
         ICustomerRepository customerRepository;
+        IOrderRepository orderRepository;
         //private readonly ILogger _logger;
 
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory)
@@ -23,10 +24,16 @@ namespace DotNet_101.Infrastructure.SqlServer
 
         public IProductRepository ProductRepository => productRepository ??= new ProductRepository(_context);
         public ICustomerRepository CustomerRepository => customerRepository ??= new CustomerRepository(_context);
+        public IOrderRepository OrderRepository => orderRepository ??= new OrderRepository(_context);
 
         public async Task CompleteAsync()
         {
             await _context.SaveChangesAsync();
+        }
+
+        public void Complete()
+        {
+            _context.SaveChanges();
         }
 
         public void Dispose()

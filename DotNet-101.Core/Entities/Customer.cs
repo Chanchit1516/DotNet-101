@@ -11,7 +11,7 @@ namespace DotNet_101.Core.Entities
         {
             Order = new List<Order>();
         }
-        public int CustomerId { get; set; }
+        public int Id { get; set; }
         public string CompanyName { get; set; }
         public string ContactTitle { get; set; }
         public string Phone { get; set; }

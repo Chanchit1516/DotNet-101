@@ -11,7 +11,7 @@ namespace DotNet_101.Infrastructure.Data.Config
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            builder.HasKey(m => m.OrderId);
+            builder.HasKey(m => m.Id);
             builder.HasOne(m => m.Customer)
                 .WithMany(m => m.Order)
                 .HasForeignKey(m => m.CustomerId);

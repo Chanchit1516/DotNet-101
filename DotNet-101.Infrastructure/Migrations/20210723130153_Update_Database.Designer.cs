@@ -7,18 +7,18 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DotNet_101.Infrastructure.Data.Migrations
+namespace DotNet_101.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210713054815_RemoveDescriptionProduct")]
-    partial class RemoveDescriptionProduct
+    [Migration("20210723130153_Update_Database")]
+    partial class Update_Database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.7")
+                .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("DotNet_101.Core.Entities.Customer", b =>
@@ -64,31 +64,33 @@ namespace DotNet_101.Infrastructure.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
-                    b.Property<int>("Discount")
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("RequiredDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("ShippedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UnitPrice")
+                    b.Property<int>("ShippedId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDateTime")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("OrderId");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
                 });
@@ -100,11 +102,17 @@ namespace DotNet_101.Infrastructure.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Barcode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
@@ -126,7 +134,41 @@ namespace DotNet_101.Infrastructure.Data.Migrations
 
                     b.HasKey("ProductId");
 
+                    b.HasIndex("OrderId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("DotNet_101.Core.Entities.Order", b =>
+                {
+                    b.HasOne("DotNet_101.Core.Entities.Customer", "Customer")
+                        .WithMany("Order")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("DotNet_101.Core.Entities.Product", b =>
+                {
+                    b.HasOne("DotNet_101.Core.Entities.Order", "Order")
+                        .WithMany("Product")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("DotNet_101.Core.Entities.Customer", b =>
+                {
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("DotNet_101.Core.Entities.Order", b =>
+                {
+                    b.Navigation("Product");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace DotNet_101.Api.Controllers
+namespace DotNet_101.Api.ControllersO
 {
     [Route("api/v1/[controller]/[action]")]
     [Authorize]
@@ -29,33 +29,19 @@ namespace DotNet_101.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProduct()
         {
-            var productModel = await _productService.GetAllCustomer();
+            var productModel = await _productService.GetAllProduct();
             return Ok(productModel);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllCustomer()
-        {
-            var customerModel = await _productService.GetAllCustomer();
-            return Ok(customerModel);
-        }
-
         [HttpPost]
-        public async Task<IActionResult> InsertCustomer([FromBody] CustomerDTO customer)
+        public async Task<IActionResult> InsertProduct([FromBody] ProductDTO product)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var model = new Customer();
-            model.CompanyName = customer.CompanyName;
-            model.ContactTitle = customer.ContactTitle;
-            model.Phone = customer.Phone;
-            model.Country = customer.Country;
-            model.CreatedBy = 0;
-            await _unitOfWork.CustomerRepository.Add(model);
-            await _unitOfWork.CompleteAsync();
-            return Ok();
+            var res = await _productService.InsertProduct(product);
+            return Ok(res);
         }
 
     }

@@ -9,14 +9,14 @@ namespace DotNet_101.Core.Entities
     {
         public Order()
         {
-            OrderDetail = new List<OrderDetail>();
+            Product = new List<Product>();
         }
-        public int OrderId { get; set; }
+        public int Id { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime ShippedDate { get; set; }
         public int ShippedId { get; set; }
         public Customer Customer { get; set; }
         public int CustomerId { get; set; }
-        public virtual ICollection<OrderDetail> OrderDetail { get; }
+        public virtual ICollection<Product> Product { get; }
     }
 }
